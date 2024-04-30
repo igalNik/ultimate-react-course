@@ -7,6 +7,7 @@ import StartScreen from "./StartScreen";
 import Question from "./Question";
 import NextButton from "./NextButton";
 import Progress from "./Progress";
+import FinishScreen from "./FinishScreen";
 
 const appStatuses = {
   Loading: "loading",
@@ -21,9 +22,11 @@ export const actionTypes = {
   DataFailed: "dataFailed",
   Start: "start",
   NewAnswer: "newAnswer",
-  nextQuestion: "nextQuestion",
+  NextQuestion: "nextQuestion",
+  Finish: "finish",
+  Restart: "restart",
 };
-const initialState = { questions: [], status: appStatuses.Loading, index: 0, answer: null, points: 0 };
+const initialState = { questions: [], status: appStatuses.Loading, index: 14, answer: null, points: 0 };
 
 function reducer(state, action) {
   switch (action.type) {
@@ -40,8 +43,12 @@ function reducer(state, action) {
         answer: action.payload,
         points: action.payload === question.correctOption ? state.points + question.points : state.points,
       };
-    case actionTypes.nextQuestion:
+    case actionTypes.NextQuestion:
       return { ...state, index: state.index + 1, answer: null };
+    case actionTypes.Finish:
+      return { ...state, status: appStatuses.Finished, answer: null };
+    case actionTypes.Restart:
+      return { ...initialState, questions: state.questions, status: appStatuses.Ready };
 
     default:
       throw new Error("Action Uknown");
@@ -85,8 +92,11 @@ function App() {
               answer={answer}
             />
             <Question question={questions[index]} answer={answer} dispatch={dispatch} />
-            <NextButton dispatch={dispatch} answer={answer} />
+            <NextButton dispatch={dispatch} answer={answer} index={index} questionsNum={numQuestions} />
           </>
+        )}
+        {status === appStatuses.Finished && (
+          <FinishScreen points={points} totalPoints={totalPoints} dispatch={dispatch} />
         )}
       </Main>
     </div>
