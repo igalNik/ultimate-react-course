@@ -2,8 +2,11 @@ import styles from "./CityList.module.css";
 import Spinner from "./Spinner";
 import Message from "./Message";
 import CountryItem from "./CountryItem";
+import { useCities } from "../contexts/CitiesContext";
 
-function CountryList({ cities, isLoading }) {
+function CountryList() {
+  const { cities, isLoading } = useCities();
+
   const countries = cities.reduce((acc, curr) => {
     console.log(acc);
     if (acc.filter((country) => country.country === curr.country).length > 0) {
