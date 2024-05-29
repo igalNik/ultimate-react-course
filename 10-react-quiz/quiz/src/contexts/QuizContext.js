@@ -25,7 +25,7 @@ const ACTION_TYPES = {
 const initialState = {
   questions: [],
   status: APP_STATUSES.Loading,
-  index: 14,
+  index: 0,
   answer: null,
   points: 0,
   highscore: 0,
