@@ -1,8 +1,6 @@
-import { useQuiz, ACTION_TYPES } from "../contexts/QuizContext";
+import { actionTypes } from "./App";
 
-function FinishScreen() {
-  const { points, totalPoints, highscore, dispatch } = useQuiz();
-
+function FinishScreen({ points, totalPoints, highscore, dispatch }) {
   const precentage = Math.ceil((points / totalPoints) * 100);
   return (
     <>
@@ -10,7 +8,7 @@ function FinishScreen() {
         You scored <strong>{points}</strong> out of {totalPoints} ({precentage}%)
       </p>
       <p className="highscore">(Highscore: {highscore})</p>
-      <button className="btn btn-ui" onClick={() => dispatch({ type: ACTION_TYPES.Restart })}>
+      <button className="btn btn-ui" onClick={() => dispatch({ type: actionTypes.Restart })}>
         Restart Quiz
       </button>
     </>

@@ -1,15 +1,13 @@
 import { useEffect } from "react";
-import { useQuiz, ACTION_TYPES } from "../contexts/QuizContext";
+import { actionTypes } from "./App";
 
-function Timer() {
-  const { secondsRemaining, dispatch } = useQuiz();
-
+function Timer({ secondsRemaining, dispatch }) {
   const minutes = Math.floor(secondsRemaining / 60);
   const seconds = secondsRemaining % 60;
   useEffect(
     function () {
       const intervalId = setInterval(function () {
-        dispatch({ type: ACTION_TYPES.Tick });
+        dispatch({ type: actionTypes.Tick });
       }, 1000);
       return () => clearInterval(intervalId);
     },

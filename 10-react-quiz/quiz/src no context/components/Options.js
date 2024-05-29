@@ -1,5 +1,4 @@
 import { actionTypes } from "./App";
-import { ACTION_TYPES } from "../contexts/QuizContext";
 
 function Options({ options, dispatch, answer, correctAnswer }) {
   const hasAnsered = answer !== null;
@@ -11,7 +10,7 @@ function Options({ options, dispatch, answer, correctAnswer }) {
             hasAnsered ? (index === correctAnswer ? "correct" : "wrong") : ""
           }`}
           key={option}
-          onClick={() => dispatch({ type: ACTION_TYPES.NewAnswer, payload: index })}
+          onClick={() => dispatch({ type: actionTypes.NewAnswer, payload: index })}
           disabled={hasAnsered}
         >
           {option}
